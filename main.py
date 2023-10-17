@@ -4,7 +4,7 @@ from telegram.ext import CommandHandler, Updater
 
 my_token = open('token.txt', 'r').read()
 
-TOKEN = 'my_token'
+TOKEN = my_token
 
 def start(update: Update, context):
     user = update.effective_user
