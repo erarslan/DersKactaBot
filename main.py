@@ -2,7 +2,9 @@ import pdf
 from telegram import Update
 from telegram.ext import CommandHandler, Updater
 
-TOKEN = '6340995753:AAGe5LAanKMhVTGaYIID0fJnnzT3qqRhzz4'
+my_token = open('token.txt', 'r').read()
+
+TOKEN = 'my_token'
 
 def start(update: Update, context):
     user = update.effective_user
