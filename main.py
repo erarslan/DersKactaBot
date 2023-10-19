@@ -10,6 +10,9 @@ def start(update: Update, context):
     user = update.effective_user
     update.message.reply_html(f"Selam {user.mention_html()}! Ders programını öğrenmek için <i>/gün</i> yazabilirsin.")
 
+def gun (update:Update, context):
+    update.message.reply_html("Lütfen günü direkt giriniz, örnek kullanım: <i>/pazartesi</i>, <i>/sali</i>...")
+
 def send(update: Update, context, day):
     update.message.reply_html(pdf.createProgram(day))
 
@@ -38,6 +41,7 @@ def main():
     dp.add_handler(CommandHandler('carsamba', carsamba))
     dp.add_handler(CommandHandler('persembe', persembe))
     dp.add_handler(CommandHandler('cuma', cuma))
+    dp.add_handler(CommandHandler('gun', gun))
 
     updater.start_polling()
     updater.idle()
