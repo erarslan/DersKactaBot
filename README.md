@@ -2,4 +2,4 @@
 BTÜ Bilgisayar Mühendisliği öğrencilerine ders programını getiren Telegram botu.
 
 Kullanım:
-/start ile botu başlatırsınız ve /<gün> ile o güne ait ders programını görürsünüz.
+/start ile botu başlatıp yönergelere göre butonlara basarsanız istediğiniz güne ait ders programını görüntülersiniz.
