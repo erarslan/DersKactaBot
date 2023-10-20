@@ -1,47 +1,57 @@
 import pdf
-from telegram import Update
-from telegram.ext import CommandHandler, Updater
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import CommandHandler, Updater, CallbackQueryHandler
 
 my_token = open('token.txt', 'r').read()
 
 TOKEN = my_token
 
 def start(update: Update, context):
+    anaklavye = [
+        [InlineKeyboardButton("1. Sınıf", callback_data="sınıf_1")],
+        [InlineKeyboardButton("2. Sınıf", callback_data="sınıf_2")],
+        [InlineKeyboardButton("3. Sınıf", callback_data="sınıf_3")]
+    ]
+    reply_markup = InlineKeyboardMarkup(anaklavye)
     user = update.effective_user
-    update.message.reply_html(f"Selam {user.mention_html()}! Ders programını öğrenmek için <i>/gün</i> yazabilirsin.")
+    update.message.reply_html(f"Selam! {user.mention_html()}! Lütfen aşağıdan sınıfını seç:", reply_markup=reply_markup)
 
-def gun (update:Update, context):
-    update.message.reply_html("Lütfen günü direkt giriniz, örnek kullanım: <i>/pazartesi</i>, <i>/sali</i>...")
 
-def send(update: Update, context, day):
-    update.message.reply_html(pdf.createProgram(day))
 
-def pazartesi(update: Update, context):
-    send(update, context, 'Pazartesi')
+def isle(update: Update, context):
+    query = update.callback_query
 
-def sali(update: Update, context):
-    send(update, context, 'Sali')
-
-def carsamba(update: Update, context):
-    send(update, context, 'Carsamba')
-
-def persembe(update: Update, context):
-    send(update, context, 'Persembe')
-
-def cuma(update: Update, context):
-    send(update, context, 'Cuma')
+    if query.data.startswith("sınıf"):
+        sayi = query.data.split('_')[1]
+        alt_butonlar = [
+                [InlineKeyboardButton("Pazartesi", callback_data=f'pazartesi_{sayi}')],
+                [InlineKeyboardButton("Salı", callback_data=f'sali_{sayi}')],
+                [InlineKeyboardButton("Çarşamba", callback_data=f'carsamba_{sayi}')],
+                [InlineKeyboardButton("Perşembe", callback_data=f'persembe_{sayi}')],
+                [InlineKeyboardButton("Cuma", callback_data=f'cuma_{sayi}')]
+                ]
+        reply_markup = InlineKeyboardMarkup(alt_butonlar)
+        query.edit_message_text("Lütfen aşağıdan gün seç:", reply_markup=reply_markup)
+    
+    else:
+        sayi = query.data.split('_')[1]
+        if query.data.startswith("pazartesi"):
+            query.edit_message_text(pdf.createProgram("Pazartesi", sayi))
+        elif query.data.startswith("sali"):
+            query.edit_message_text(pdf.createProgram("Sali", sayi))
+        elif query.data.startswith("carsamba"):
+            query.edit_message_text(pdf.createProgram("Carsamba", sayi))
+        elif query.data.startswith("persembe"):
+            query.edit_message_text(pdf.createProgram("Persembe", sayi))
+        elif query.data.startswith("cuma"):
+            query.edit_message_text(pdf.createProgram("Cuma", sayi))
 
 def main():
-    updater = Updater(token=TOKEN, use_context=True)
+    updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler('start', start))
-    dp.add_handler(CommandHandler('pazartesi', pazartesi))
-    dp.add_handler(CommandHandler('sali', sali))
-    dp.add_handler(CommandHandler('carsamba', carsamba))
-    dp.add_handler(CommandHandler('persembe', persembe))
-    dp.add_handler(CommandHandler('cuma', cuma))
-    dp.add_handler(CommandHandler('gun', gun))
+    dp.add_handler(CallbackQueryHandler(isle))
 
     updater.start_polling()
     updater.idle()

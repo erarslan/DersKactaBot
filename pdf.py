@@ -1,35 +1,58 @@
 import camelot
-df = camelot.read_pdf("BM1.pdf")[0].df
 
-# DataFrame Editing
+def createProgram (day, sınıf):
 
-df = df.drop(10)
-df[3][0] = "Salı"
-df[4][0] = "Çarşamba"
-df[5][0] = "Perşembe"
-df[1][0] = "Saatler"
+    if sınıf == "1":
+        df = camelot.read_pdf("BM1.pdf")[0].df
+        df = df.drop(10)
+        df = df.drop(0, axis=1)
+        df.columns = df.columns - 1
+        df[0][0] = "Saatler"
+        df[2][0] = "Salı"
+        df[3][0] = "Çarşamba"
+        df[4][0] = "Perşembe"
 
-for i in range(df.shape[1]):
-    if i == 5:
-        continue
-    df[i][5] = "ÖĞLE ARASI"
+        for i in range(1, df.shape[1]):
+            if i == 4:
+                continue
+            df[i][5] = "ÖĞLE ARASI"
+    
+    elif sınıf == "2":
+        df = camelot.read_pdf("BM2.pdf")[0].df
+        df = df.drop(10)
+        df[0][0] = "Saatler"
+        df[2][0] = "Salı"
+        df[3][0] = "Çarşamba"
 
-df = df.drop(0, axis=1)
+        for i in range(1, df.shape[1]):
+            df[i][5] = "ÖĞLE ARASI"
+    
+    else:
+        df = camelot.read_pdf("BM3.pdf")[0].df
+        df = df.drop(10)
+        df = df.drop(0, axis=1)
+        df.columns = df.columns - 1
+        df[1][0] = "Pazartesi"
+        df[0][0] = "Saatler"
+        df[2][0] = "Salı"
+        df[3][0] = "Çarşamba"
+        df[4][0] = "Perşembe"
 
-# Creating Program
-
-def createProgram (day):
+        for i in range(1, df.shape[1]):
+            df[i][5] = "ÖĞLE ARASI"
+    
     list = []
+
     if day == "Pazartesi":
-        i = 2
+        i = 1
     elif day == "Sali":
-        i = 3
+        i = 2
     elif day == "Carsamba":
-        i = 4
+        i = 3
     elif day == "Persembe":
-        i = 5
+        i = 4
     elif day == "Cuma":
-        i = 6
+        i = 5
     
     for k in df[i][1:]:
         list.append(k)
@@ -39,12 +62,12 @@ def createProgram (day):
 
     liste = []
     baslik_df = df[i][0].upper()
-    baslik = f"➡️➡️ <b>{baslik_df}</b> ⬅️⬅️"
+    baslik = f"➡️➡️ {baslik_df} ⬅️⬅️"
     liste.append(baslik)
 
     for x in list:
         if x == "ÖĞLE ARASI":
-            liste.append(f"🆓☕️ <b>{x}</b> ☕️🆓")
+            liste.append(f"🆓☕️ {x} ☕️🆓")
             continue
         x = x.replace("\n", "")
         parcalar = x.split(", ")
@@ -53,6 +76,6 @@ def createProgram (day):
 Hoca🧑‍🏫 → {parcalar[2]}
 Yer🚪 → {parcalar[3]}"""
         liste.append(output_string)
-    bitti = "\n****************************\n".join(liste)
+    son_program = "\n****************************\n".join(liste)
 
-    return bitti
+    return son_program
