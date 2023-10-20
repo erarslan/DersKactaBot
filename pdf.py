@@ -52,6 +52,6 @@ def createProgram (day):
 Hoca🧑‍🏫 → {parcalar[2]}
 Yer🚪 → {parcalar[3]}"""
         liste.append(output_string)
-    bitti = "\n\n".join(liste)
+    bitti = "\n****************************\n".join(liste)
 
     return bitti
