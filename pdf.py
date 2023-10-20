@@ -3,7 +3,7 @@ import camelot
 def createProgram (day, sınıf):
 
     if sınıf == "1":
-        df = camelot.read_pdf("BM1.pdf")[0].df
+        df = camelot.read_pdf("PDF\BM1.pdf")[0].df
         df = df.drop(10)
         df = df.drop(0, axis=1)
         df.columns = df.columns - 1
@@ -18,7 +18,7 @@ def createProgram (day, sınıf):
             df[i][5] = "ÖĞLE ARASI"
     
     elif sınıf == "2":
-        df = camelot.read_pdf("BM2.pdf")[0].df
+        df = camelot.read_pdf("PDF\BM2.pdf")[0].df
         df = df.drop(10)
         df[0][0] = "Saatler"
         df[2][0] = "Salı"
@@ -28,7 +28,7 @@ def createProgram (day, sınıf):
             df[i][5] = "ÖĞLE ARASI"
     
     else:
-        df = camelot.read_pdf("BM3.pdf")[0].df
+        df = camelot.read_pdf("PDF\BM3.pdf")[0].df
         df = df.drop(10)
         df = df.drop(0, axis=1)
         df.columns = df.columns - 1
@@ -37,6 +37,8 @@ def createProgram (day, sınıf):
         df[2][0] = "Salı"
         df[3][0] = "Çarşamba"
         df[4][0] = "Perşembe"
+        df[4][3] = 'MTH-MKK Dijital Dönüşüm Projelerinin \nYönetimi T, Bilgisayar Mühendisliği \n(Türkçe)  Şube 1, -Öğretim Üyesi \nBelirlenmemiş-, Yok'
+        df[4][4] = 'MTH-MKK Dijital Dönüşüm Projelerinin \nYönetimi T, Bilgisayar Mühendisliği \n(Türkçe)  Şube 1, -Öğretim Üyesi \nBelirlenmemiş-, Yok'
 
         for i in range(1, df.shape[1]):
             df[i][5] = "ÖĞLE ARASI"

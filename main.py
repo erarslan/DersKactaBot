@@ -43,7 +43,7 @@ def isle(update: Update, context):
             query.edit_message_text(pdf.createProgram("Carsamba", sayi))
         elif query.data.startswith("persembe"):
             query.edit_message_text(pdf.createProgram("Persembe", sayi))
-        elif query.data.startswith("cuma"):
+        else:
             query.edit_message_text(pdf.createProgram("Cuma", sayi))
 
 def main():
