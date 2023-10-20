@@ -14,7 +14,7 @@ def start(update: Update, context):
     ]
     reply_markup = InlineKeyboardMarkup(anaklavye)
     user = update.effective_user
-    update.message.reply_html(f"Selam! {user.mention_html()}! Lütfen aşağıdan sınıfını seç:", reply_markup=reply_markup)
+    update.message.reply_html(f"Selam, {user.mention_html()}! Lütfen aşağıdan sınıfını seç:", reply_markup=reply_markup)
 
 
 
