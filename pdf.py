@@ -46,6 +46,7 @@ def createProgram (day):
         if x == "ÖĞLE ARASI":
             liste.append(f"🆓☕️ <b>{x}</b> ☕️🆓")
             continue
+        x = x.replace("\n", "")
         parcalar = x.split(", ")
         output_string = f"""Ders📕 → {parcalar[0]}
 Şube🔢 → {parcalar[1]}
