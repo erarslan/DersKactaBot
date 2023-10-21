@@ -3,3 +3,5 @@ BTÜ Bilgisayar Mühendisliği öğrencilerine ders programını getiren Telegra
 
 Kullanım:
 /start ile botu başlatıp yönergelere göre butonlara basarsanız istediğiniz güne ait ders programını görüntülersiniz.
+
+Botu denemek için: t.me/DersKactaBot
